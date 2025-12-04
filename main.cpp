@@ -128,15 +128,16 @@ void printPath(pair<int,int> exitcell,
         for (int i = 0; i < 4; i++) {
             int nr = r + dr[i];
             int nc = c + dc[i];
-            if (visited[nr][nc] == false && maze[nr][nc] == 0 && nr < maze.size() && nr >= 0 && nc < maze[0].size() && nc >= 0) {
+            if (nr < maze.size() && nr >= 0 && nc < maze[0].size() && nc >= 0 && maze[nr][nc] == 0 && visited[nr][nc] == false) {
                 parent_r[nr][nc] = r;
                 parent_c[nr][nc] = c;
-                return dfs(nr, nc, maze, visited, parent_r, parent_c, exit_r, exit_c);
+                bool valid_path = dfs(nr, nc, maze, visited, parent_r, parent_c, exit_r, exit_c);
+                if (valid_path == true) {
+                    return(true);
+                }
             }
         }
-        return false;
-        nr = r;
-        nc = c;
+        return(false);
    }
 
 // ----------------------------------------------------------
