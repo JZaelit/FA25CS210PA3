@@ -121,23 +121,23 @@ void printPath(pair<int,int> exitcell,
 // ----------------------------------------------------------
    bool dfs(int r, int c, const vector<vector<int>>& maze, vector<vector<bool>>& visited, vector<vector<int>>& parent_r, vector<vector<int>>& parent_c, int exit_r, int exit_c) {
         //check neighbors
-        visited[r][c] = true;
-        if (r == exit_r && c == exit_c) {
+        visited[r][c] = true; //marks current node as visited
+        if (r == exit_r && c == exit_c) { //returns true if exit node is found
             return true;
         }
-        for (int i = 0; i < 4; i++) {
-            int nr = r + dr[i];
-            int nc = c + dc[i];
-            if (nr < maze.size() && nr >= 0 && nc < maze[0].size() && nc >= 0 && maze[nr][nc] == 0 && visited[nr][nc] == false) {
-                parent_r[nr][nc] = r;
-                parent_c[nr][nc] = c;
-                bool valid_path = dfs(nr, nc, maze, visited, parent_r, parent_c, exit_r, exit_c);
-                if (valid_path == true) {
+        for (int i = 0; i < 4; i++) { //loops 4 times for the 4 different directions neighbors can be
+            int nr = r + dr[i]; //updates row index to neighbor row index
+            int nc = c + dc[i]; //updates column index to neighbor column index
+            if (nr < maze.size() && nr >= 0 && nc < maze[0].size() && nc >= 0 && maze[nr][nc] == 0 && visited[nr][nc] == false) { //validity checks for neighbor node
+                parent_r[nr][nc] = r; //stores parent node row index of current node
+                parent_c[nr][nc] = c; //stores parent node column index of current node
+                bool valid_path = dfs(nr, nc, maze, visited, parent_r, parent_c, exit_r, exit_c); //recursive call and stores return result in bool valid_path
+                if (valid_path == true) { //if valid_path = true then a path exists and true can be returned
                     return(true);
                 }
             }
         }
-        return(false);
+        return(false); //if no valid_path is found then false is returned
    }
 
 // ----------------------------------------------------------
